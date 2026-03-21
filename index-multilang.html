@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欧筑设计 | Ouzhu Design | Studio Ouzhu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --gold-light: #f4d03f;
+            --dark: #0a0a0a;
+            --dark-light: #141414;
+            --white: #ffffff;
+            --gray: rgba(255,255,255,0.6);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Language Switcher */
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            gap: 10px;
+            background: rgba(10,10,10,0.8);
+            backdrop-filter: blur(10px);
+            padding: 8px 15px;
+            border-radius: 30px;
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+        
+        .lang-btn {
+            padding: 6px 14px;
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .lang-btn:hover { color: var(--white); }
+        
+        .lang-btn.active {
+            background: var(--gold);
+            color: var(--dark);
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+        
+        nav.scrolled {
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 5%;
+            border-bottom: 1px solid rgba(212,175,55,0.1);
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 3px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 50px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 60%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+        }
+        
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            padding: 0 20px;
+            max-width: 900px;
+        }
+        
+        .hero-subtitle {
+            font-size: 0.9rem;
+            color: var(--gold);
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 400;
+            margin-bottom: 20px;
+            letter-spacing: 8px;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        
+        .hero-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transition: left 0.4s;
+            z-index: -1;
+        }
+        
+        .hero-btn:hover::before { left: 0; }
+        .hero-btn:hover { color: var(--dark); }
+        
+        .hero-stats {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 80px;
+        }
+        
+        .stat {
+            text-align: center;
+            position: relative;
+        }
+        
+        .stat::after {
+            content: '';
+            position: absolute;
+            right: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 40px;
+            background: rgba(212,175,55,0.3);
+        }
+        
+        .stat:last-child::after { display: none; }
+        
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+        
+        /* Section Styles */
+        .section {
+            padding: 120px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-label {
+            font-size: 0.75rem;
+            color: var(--gold);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .section-subtitle {
+            color: var(--gray);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+        
+        /* Works Section */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+        
+        .work-card {
+            position: relative;
+            background: var(--dark-light);
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+        
+        .work-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+        
+        .work-image {
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .work-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+        
+        .work-card:hover .work-image img {
+            transform: scale(1.1);
+        }
+        
+        .work-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.9) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .work-card:hover .work-overlay { opacity: 1; }
+        
+        .work-view-btn {
+            padding: 12px 30px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .work-view-btn:hover {
+            background: var(--gold);
+            color: var(--dark);
+        }
+        
+        .work-info {
+            padding: 30px;
+        }
+        
+        .work-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .work-tag {
+            padding: 5px 15px;
+            background: rgba(212,175,55,0.1);
+            color: var(--gold);
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            border-radius: 20px;
+        }
+        
+        .work-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .work-info p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Services Section */
+        .services {
+            background: linear-gradient(180deg, var(--dark) 0%, #0d0d0d 100%);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            padding: 50px 40px;
+            background: var(--dark-light);
+            border: 1px solid rgba(212,175,55,0.1);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .service-card:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .service-card:hover {
+            border-color: rgba(212,175,55,0.3);
+            transform: translateY(-5px);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
+        
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .service-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+        
+        .about-text p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .about-image {
+            height: 500px;
+            background: var(--dark-light);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(180deg, #0d0d0d 0%, var(--dark) 100%);
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+        
+        .contact-item {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(212,175,55,0.1);
+        }
+        
+        .contact-item label {
+            display: block;
+            color: var(--gold);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        .contact-item p {
+            font-size: 1.1rem;
+            color: var(--white);
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 18px 20px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(212,175,55,0.2);
+            color: var(--white);
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--gold);
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: var(--gold);
+            border: none;
+            color: var(--dark);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 60px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(212,175,55,0.1);
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover { color: var(--gold); }
+        
+        .footer-copy {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.8rem;
+        }
+        
+        /* Hide non-active language elements */
+        [data-lang] { display: none; }
+        [data-lang="zh"].active,
+        [data-lang="en"].active,
+        [data-lang="it"].active { display: block; }
+        
+        span[data-lang].active,
+        a[data-lang].active,
+        div[data-lang].active { display: inline; }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .hero-stats { gap: 40px; }
+            .stat::after { right: -20px; }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .lang-switcher { top: 80px; right: 10px; }
+            .hero h1 { letter-spacing: 3px; }
+            .hero-stats { 
+                position: relative; 
+                bottom: auto; 
+                margin-top: 60px;
+                flex-direction: column;
+                gap: 30px;
+            }
+            .stat::after { display: none; }
+            .works-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" onclick="switchLang('en')">EN</button>
+        <button class="lang-btn" onclick="switchLang('it')">IT</button>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo">OUZHU</div>
+        <ul class="nav-links">
+            <li><a href="#home" data-lang="zh">首页</a><a href="#home" data-lang="en">Home</a><a href="#home" data-lang="it">Home</a></li>
+            <li><a href="#works" data-lang="zh">作品</a><a href="#works" data-lang="en">Works</a><a href="#works" data-lang="it">Progetti</a></li>
+            <li><a href="#services" data-lang="zh">服务</a><a href="#services" data-lang="en">Services</a><a href="#services" data-lang="it">Servizi</a></li>
+            <li><a href="#about" data-lang="zh">关于</a><a href="#about" data-lang="en">About</a><a href="#about" data-lang="it">Chi Siamo</a></li>
+            <li><a href="#contact" data-lang="zh">联系</a><a href="#contact" data-lang="en">Contact</a><a href="#contact" data-lang="it">Contatti</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-subtitle" data-lang="zh">意大利 · 米兰</div>
+            <div class="hero-subtitle" data-lang="en">Italy · Milan</div>
+            <div class="hero-subtitle" data-lang="it">Italia · Milano</div>
+            
+            <h1>
+                <span data-lang="zh">欧筑</span>
+                <span data-lang="en">Ouzhu</span>
+                <span data-lang="it">Ouzhu</span>
+                <span>Design</span>
+            </h1>
+            
+            <p class="hero-desc" data-lang="zh">商业空间设计 / 高端餐饮 / 精品酒店 / 奢华办公</p>
+            <p class="hero-desc" data-lang="en">Commercial Design / Fine Dining / Boutique Hotels / Luxury Offices</p>
+            <p class="hero-desc" data-lang="it">Design Commerciale / Ristorazione di Lusso / Hotel Boutique / Uffici Premium</p>
+            
+            <a href="#works" class="hero-btn" data-lang="zh">查看作品</a>
+            <a href="#works" class="hero-btn" data-lang="en">View Works</a>
+            <a href="#works" class="hero-btn" data-lang="it">Vedi Progetti</a>
+        </div>
+        
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-number">50+</div>
+                <div class="stat-label" data-lang="zh">完成项目</div>
+                <div class="stat-label" data-lang="en">Projects</div>
+                <div class="stat-label" data-lang="it">Progetti</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">1500</div>
+                <div class="stat-label" data-lang="zh">最大㎡</div>
+                <div class="stat-label" data-lang="en">Max Sqm</div>
+                <div class="stat-label" data-lang="it">Max Mq</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">6+</div>
+                <div class="stat-label" data-lang="zh">年经验</div>
+                <div class="stat-label" data-lang="en">Years</div>
+                <div class="stat-label" data-lang="it">Anni</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Works Section -->
+    <section class="section" id="works">
+        <div class="section-header">
+            <div class="section-label" data-lang="zh">精选作品</div>
+            <div class="section-label" data-lang="en">Selected Works</div>
+            <div class="section-label" data-lang="it">Progetti Selezionati</div>
+            
+            <h2 class="section-title" data-lang="zh">代表作品</h2>
+            <h2 class="section-title" data-lang="en">Featured Projects</h2>
+            <h2 class="section-title" data-lang="it">Progetti in Evidenza</h2>
+        </div>
+        
+        <div class="works-grid">
+            <div class="work-card">
+                <div class="work-image">
+                    <img src="work1.jpg" alt="Viterbo Moon Sushi">
+                    <div class="work-overlay">
+                        <a href="#" class="work-view-btn" data-lang="zh">查看详情</a>
+                        <a href="#" class="work-view-btn" data-lang="en">View Details</a>
+                        <a href="#" class="work-view-btn" data-lang="it">Vedi Dettagli</a>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <div class="work-tags">
+                        <span class="work-tag" data-lang="zh">日料餐饮</span>
+                        <span class="work-tag" data-lang="en">Japanese Restaurant</span>
+                        <span class="work-tag" data-lang="it">Ristorante Giapponese</span>
+                        
+                        <span class="work-tag" data-lang="zh">欧筑奢华风</span>
+                        <span class="work-tag" data-lang="en">Luxury Style</span>
+                        <span class="work-tag" data-lang="it">Stile di Lusso</span>
+                    </div>
+                    <h3>Viterbo Moon Sushi</h3>
+                    <p data-lang="zh">1500㎡ / Viterbo, Italy / 2024</p>
+                    <p data-lang="en">1500sqm / Viterbo, Italy / 2024</p>
+                    <p data-lang="it">1500mq / Viterbo, Italia / 2024</p>
+                </div>
+            </div>
+            
+            <div class="work-card">
+                <div class="work-image">
+                    <img src="work2.jpg" alt="Viterbo Moon Sushi">
+                    <div class="work-overlay">
+                        <a href="#" class="work-view-btn" data-lang="zh">查看详情</a>
+                        <a href="#" class="work-view-btn" data-lang="en">View Details</a>
+                        <a href="#" class="work-view-btn" data-lang="it">Vedi Dettagli</a>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <div class="work-tags">
+                        <span class="work-tag" data-lang="zh">全景空间</span>
+                        <span class="work-tag" data-lang="en">Panoramic</span>
+                        <span class="work-tag" data-lang="it">Panoramico</span>
+                    </div>
+                    <h3>Viterbo Moon Sushi</h3>
+                    <p data-lang="zh">放射状灯光设计 / 镜面反射空间</p>
+                    <p data-lang="en">Radial Lighting Design / Mirror Reflection Space</p>
+                    <p data-lang="it">Design Illuminazione Radiale / Spazio a Specchio</p>
+                </div>
+            </div>
+            
+            <div class="work-card">
+                <div class="work-image">
+                    <img src="work3.jpg" alt="Viterbo Moon Sushi">
+                    <div class="work-overlay">
+                        <a href="#" class="work-view-btn" data-lang="zh">查看详情</a>
+                        <a href="#" class="work-view-btn" data-lang="en">View Details</a>
+                        <a href="#" class="work-view-btn" data-lang="it">Vedi Dettagli</a>
+                    </div>
+                </div>
+                <div class="work-info">
+                    <div class="work-tags">
+                        <span class="work-tag" data-lang="zh">细节工艺</span>
+                        <span class="work-tag" data-lang="en">Craft Details</span>
+                        <span class="work-tag" data-lang="it">Dettagli Artigianali</span>
+                    </div>
+                    <h3>Viterbo Moon Sushi</h3>
+                    <p data-lang="zh">大理石与丝绒 / 奢华材质搭配</p>
+                    <p data-lang="en">Marble & Velvet / Luxury Material Mix</p>
+                    <p data-lang="it">Marmo e Velluto / Mix di Materiali di Lusso</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+        <div class="section-header">
+            <div class="section-label" data-lang="zh">服务范围</div>
+            <div class="section-label" data-lang="en">Our Services</div>
+            <div class="section-label" data-lang="it">I Nostri Servizi</div>
+            
+            <h2 class="section-title" data-lang="zh">专业领域</h2>
+            <h2 class="section-title" data-lang="en">What We Do</h2>
+            <h2 class="section-title" data-lang="it">Cosa Facciamo</h2>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🍽️</div>
+                <h3 data-lang="zh">高端餐饮</h3>
+                <h3 data-lang="en">Fine Dining</h3>
+                <h3 data-lang="it">Ristorazione di Lusso</h3>
+                
+                <p data-lang="zh">餐厅、酒吧、咖啡厅的完整空间设计方案，从概念到落地</p>
+                <p data-lang="en">Complete spatial design for restaurants, bars, and cafes from concept to completion</p>
+                <p data-lang="it">Design spaziale completo per ristoranti, bar e caffè dal concept alla realizzazione</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🏢</div>
+                <h3 data-lang="zh">商业办公</h3>
+                <h3 data-lang="en">Commercial Office</h3>
+                <h3 data-lang="it">Uffici Commerciali</h3>
+                
+                <p data-lang="zh">办公室、展示空间设计，功能与美学的完美平衡</p>
+                <p data-lang="en">Office and exhibition space design balancing functionality and aesthetics</p>
+                <p data-lang="it">Design di uffici e spazi espositivi che bilanciano funzionalità ed estetica</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🏨</div>
+                <h3 data-lang="zh">精品酒店</h3>
+                <h3 data-lang="en">Boutique Hotels</h3>
+                <h3 data-lang="it">Hotel Boutique</h3>
+                
+                <p data-lang="zh">酒店、民宿整体设计，打造独特的旅居体验</p>
+                <p data-lang="en">Complete hotel and B&B design creating unique hospitality experiences</p>
+                <p data-lang="it">Design completo di hotel e B&B creando esperienze ospitalità uniche</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">✨</div>
+                <h3 data-lang="zh">品牌咨询</h3>
+                <h3 data-lang="en">Brand Consulting</h3>
+                <h3 data-lang="it">Consulenza di Marca</h3>
+                
+                <p data-lang="zh">空间品牌策略、VI设计、店面形象升级</p>
+                <p data-lang="en">Spatial brand strategy, VI design, and store image upgrading</p>
+                <p data-lang="it">Strategia di marca spaziale, design VI e aggiornamento immagine negozio</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="about-content">
+            <div class="about-text">
+                <div class="section-label" data-lang="zh">关于我们</div>
+                <div class="section-label" data-lang="en">About Us</div>
+                <div class="section-label" data-lang="it">Chi Siamo</div>
+                
+                <h3 data-lang="zh">源自米兰的设计力量</h3>
+                <h3 data-lang="en">Design Power from Milan</h3>
+                <h3 data-lang="it">Potenza del Design da Milano</h3>
+                
+                <p data-lang="zh">欧筑设计成立于意大利米兰，专注于高端商业空间设计。我们相信，空间不仅是容器，更是品牌故事的讲述者。</p>
+                <p data-lang="en">Ouzhu Design was founded in Milan, Italy, specializing in high-end commercial space design. We believe space is not just a container, but a storyteller of brand identity.</p>
+                <p data-lang="it">Ouzhu Design è stata fondata a Milano, in Italia, specializzata nel design di spazi commerciali di alta gamma. Crediamo che lo spazio non sia solo un contenitore, ma un narratore dell'identità del marchio.</p>
+                
+                <p data-lang="zh">从概念到落地，我们提供全流程设计服务。每一个项目，我们都深入理解客户需求，创造既美观又实用的空间解决方案。</p>
+                <p data-lang="en">From concept to completion, we provide full-process design services. For each project, we deeply understand client needs to create beautiful yet practical spatial solutions.</p>
+                <p data-lang="it">Dal concept al completamento, forniamo servizi di design a processo completo. Per ogni progetto, comprendiamo profondamente le esigenze del cliente per creare soluzioni spaziali belle e pratiche.</p>
+            </div>
+            
+            <div class="about-image">
+                <img src="work2.jpg" alt="Ouzhu Design Studio">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="section-header">
+            <div class="section-label" data-lang="zh">联系方式</div>
+            <div class="section-label" data-lang="en">Contact</div>
+            <div class="section-label" data-lang="it">Contatti</div>
+            
+            <h2 class="section-title" data-lang="zh">开始合作</h2>
+            <h2 class="section-title" data-lang="en">Start a Project</h2>
+            <h2 class="section-title" data-lang="it">Inizia un Progetto</h2>
+        </div>
+        
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>OUZHU DESIGN</h3>
+                
+                <div class="contact-item">
+                    <label>Email</label>
+                    <p>hu978779294@gmail.com</p>
+                </div>
+                
+                <div class="contact-item">
+                    <label data-lang="zh">电话</label>
+                    <label data-lang="en">Phone</label>
+                    <label data-lang="it">Telefono</label>
+                    <p>+39 340 544 8101</p>
+                </div>
+                
+                <div class="contact-item">
+                    <label data-lang="zh">地址</label>
+                    <label data-lang="en">Address</label>
+                    <label data-lang="it">Indirizzo</label>
+                    <p>Via Garbagnate Milanese<br>Milano, Italia</p>
+                </div>
+            </div>
+            
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Messaggio inviato! / Message sent! / 消息已发送！');">
+                <input type="text" placeholder="Name / Nome / 姓名" required>
+                <input type="email" placeholder="Email" required>
+                <input type="text" placeholder="Project Type / Tipo di Progetto / 项目类型">
+                <textarea placeholder="Message / Messaggio / 留言"></textarea>
+                
+                <button type="submit" class="submit-btn" data-lang="zh">发送咨询</button>
+                <button type="submit" class="submit-btn" data-lang="en">Send Message</button>
+                <button type="submit" class="submit-btn" data-lang="it">Invia Messaggio</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">OUZHU DESIGN</div>
+        
+        <div class="footer-links">
+            <a href="#home" data-lang="zh">首页</a>
+            <a href="#home" data-lang="en">Home</a>
+            <a href="#home" data-lang="it">Home</a>
+            
+            <a href="#works" data-lang="zh">作品</a>
+            <a href="#works" data-lang="en">Works</a>
+            <a href="#works" data-lang="it">Progetti</a>
+            
+            <a href="#contact" data-lang="zh">联系</a>
+            <a href="#contact" data-lang="en">Contact</a>
+            <a href="#contact" data-lang="it">Contatti</a>
+        </div>
+        
+        <div class="footer-copy">
+            <span data-lang="zh">© 2025 欧筑设计. 保留所有权利.</span>
+            <span data-lang="en">© 2025 Ouzhu Design. All rights reserved.</span>
+            <span data-lang="it">© 2025 Ouzhu Design. Tutti i diritti riservati.</span>
+        </div>
+    </footer>
+
+    <script>
+        // Language Switcher
+        function switchLang(lang) {
+            // Update buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update content visibility
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                el.classList.remove('active');
+                if (el.getAttribute('data-lang') === lang) {
+                    el.classList.add('active');
+                }
+            });
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+            
+            // Save preference
+            localStorage.setItem('preferredLang', lang);
+        }
+        
+        // Initialize with saved preference or default to Chinese
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('preferredLang') || 'zh';
+            const btn = document.querySelector(`.lang-btn[onclick*="${savedLang}"]`);
+            if (btn) btn.click();
+            
+            // Add active class to Chinese elements by default
+            document.querySelectorAll('[data-lang="zh"]').forEach(el => {
+                el.classList.add('active');
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

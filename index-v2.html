@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筑境设计 - 商业空间设计</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+            background: #0a0a0a; 
+            color: #fff; 
+            line-height: 1.6;
+        }
+        
+        /* 导航 */
+        nav { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            padding: 20px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: #00d4aa; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        .nav-links a:hover { color: #00d4aa; }
+        
+        /* Hero */
+        .hero { 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0,212,170,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 1; padding: 0 20px; }
+        .hero-badge { 
+            display: inline-block; 
+            padding: 8px 20px; 
+            border: 1px solid rgba(0,212,170,0.5);
+            color: #00d4aa; 
+            font-size: 0.8rem; 
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+        }
+        .hero h1 { font-size: clamp(2rem, 5vw, 4rem); font-weight: 300; margin-bottom: 20px; letter-spacing: 10px; }
+        .hero h1 span { font-weight: 700; color: #00d4aa; }
+        .hero-subtitle { color: rgba(255,255,255,0.5); font-size: 1.1rem; letter-spacing: 5px; margin-bottom: 40px; }
+        .hero-btn { 
+            display: inline-block; 
+            padding: 15px 50px; 
+            background: #00d4aa; 
+            color: #000; 
+            text-decoration: none; 
+            font-weight: 600;
+            letter-spacing: 3px;
+            transition: all 0.3s;
+        }
+        .hero-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,212,170,0.3); }
+        .hero-stats { 
+            position: absolute; 
+            bottom: 60px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            display: flex; 
+            gap: 60px;
+        }
+        .stat { text-align: center; }
+        .stat-number { font-size: 2.5rem; font-weight: 700; color: #00d4aa; }
+        .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.4); letter-spacing: 2px; }
+        
+        /* 作品 */
+        .section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2rem; font-weight: 300; letter-spacing: 8px; margin-bottom: 15px; }
+        .section-title p { color: rgba(255,255,255,0.4); letter-spacing: 3px; font-size: 0.9rem; }
+        
+        .works-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .work-card { 
+            background: #141414; 
+            border-radius: 8px; 
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .work-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .work-image { 
+            width: 100%; 
+            height: 250px; 
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.2);
+            font-size: 3rem;
+            overflow: hidden;
+            position: relative;
+        }
+        .work-image img { width: 100%; height: 100%; object-fit: cover; }
+        .work-image::after {
+            content: '点击查看';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 25px;
+            border: 1px solid rgba(255,255,255,0.5);
+            color: #fff;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .work-card:hover .work-image::after { opacity: 1; }
+        .work-card:hover .work-image img { filter: brightness(0.6); }
+        .work-info { padding: 25px; }
+        .work-tags { margin-bottom: 10px; }
+        .work-tag { 
+            display: inline-block; 
+            padding: 4px 12px; 
+            background: rgba(0,212,170,0.1); 
+            color: #00d4aa; 
+            font-size: 0.7rem; 
+            margin-right: 8px;
+            border-radius: 3px;
+        }
+        .work-info h3 { font-size: 1.3rem; margin-bottom: 8px; font-weight: 500; }
+        .work-info p { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+        
+        /* 奖项 */
+        .awards { background: #0d0d0d; }
+        .awards-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .award-item { 
+            padding: 30px; 
+            background: #141414; 
+            border-left: 3px solid #00d4aa;
+        }
+        .award-year { color: #00d4aa; font-size: 0.8rem; letter-spacing: 3px; margin-bottom: 10px; }
+        .award-item h4 { font-size: 1.1rem; margin-bottom: 8px; font-weight: 500; }
+        .award-item p { color: rgba(255,255,255,0.4); font-size: 0.9rem; }
+        
+        /* 联系 */
+        .contact-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 80px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .contact-info h3 { font-size: 1.5rem; margin-bottom: 30px; font-weight: 400; }
+        .contact-item { margin-bottom: 25px; }
+        .contact-item label { display: block; color: #00d4aa; font-size: 0.75rem; letter-spacing: 3px; margin-bottom: 5px; }
+        .contact-item p { font-size: 1.1rem; color: rgba(255,255,255,0.8); }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #141414;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus { border-color: #00d4aa; }
+        .contact-form textarea { height: 120px; resize: vertical; }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #00d4aa;
+            border: none;
+            color: #000;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .submit-btn:hover { background: #00b894; }
+        
+        footer { 
+            text-align: center; 
+            padding: 40px; 
+            color: rgba(255,255,255,0.3); 
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2rem; letter-spacing: 5px; }
+            .hero-stats { gap: 30px; }
+            .works-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">筑境设计</div>
+        <ul class="nav-links">
+            <li><a href="#home">首页</a></li>
+            <li><a href="#works">作品</a></li>
+            <li><a href="#awards">荣誉</a></li>
+            <li><a href="#contact">联系</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge">2024 金堂奖获奖团队</div>
+            <h1>空间即<span>品牌</span></h1>
+            <p class="hero-subtitle">商业空间设计 / 餐饮 / 办公 / 零售</p>
+            <a href="#works" class="hero-btn">查看作品</a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">完成项目</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">6</div>
+                <div class="stat-label">设计大奖</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">满意度</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="works">
+        <div class="section-title">
+            <h2>精选作品</h2>
+            <p>SELECTED WORKS</p>
+        </div>
+        <div class="works-grid">
+            <!-- 作品1 -->
+            <div class="work-card">
+                <div class="work-image">
+                    📷 添加图片 work1.jpg
+                </div>
+                <div class="work-info">
+                    <div class="work-tags">
+                        <span class="work-tag">餐饮</span>
+                        <span class="work-tag">获奖作品</span>
+                    </div>
+                    <h3>Impero Sushi</h3>
+                    <p>120㎡ / 工业科技风日料餐厅</p>
+                </div>
+            </div>
+            
+            <!-- 作品2 -->
+            <div class="work-card">
+                <div class="work-image">
+                    📷 添加图片 work2.jpg
+                </div>
+                <div class="work-info">
+                    <div class="work-tags">
+                        <span class="work-tag">办公</span>
+                    </div>
+                    <h3>EDGE Office</h3>
+                    <p>500㎡ / 现代联合办公空间</p>
+                </div>
+            </div>
+            
+            <!-- 作品3 -->
+            <div class="work-card">
+                <div class="work-image">
+                    📷 添加图片 work3.jpg
+                </div>
+                <div class="work-info">
+                    <div class="work-tags">
+                        <span class="work-tag">零售</span>
+                    </div>
+                    <h3>VOGUE Boutique</h3>
+                    <p>150㎡ / 买手店空间设计</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section awards" id="awards">
+        <div class="section-title">
+            <h2>获奖荣誉</h2>
+            <p>AWARDS & RECOGNITION</p>
+        </div>
+        <div class="awards-list">
+            <div class="award-item">
+                <div class="award-year">2024</div>
+                <h4>金堂奖 · 年度杰出餐饮空间</h4>
+                <p>Impero Sushi 日料餐厅设计</p>
+            </div>
+            <div class="award-item">
+                <div class="award-year">2023</div>
+                <h4>筑巢奖 · 商业空间设计优秀奖</h4>
+                <p>EDGE Office 联合办公空间</p>
+            </div>
+            <div class="award-item">
+                <div class="award-year">2023</div>
+                <h4>A' Design Award · 室内设计银奖</h4>
+                <p>SILENCE Hotel 精品酒店</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="contact">
+        <div class="section-title">
+            <h2>联系我们</h2>
+            <p>GET IN TOUCH</p>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>开始您的项目</h3>
+                <div class="contact-item">
+                    <label>EMAIL</label>
+                    <p>hello@zhujing.design</p>
+                </div>
+                <div class="contact-item">
+                    <label>PHONE</label>
+                    <p>+86 138 0000 0000</p>
+                </div>
+                <div class="contact-item">
+                    <label>ADDRESS</label>
+                    <p>上海市静安区南京西路 1266 号</p>
+                </div>
+            </div>
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('消息已发送！');">
+                <input type="text" placeholder="您的姓名" required>
+                <input type="email" placeholder="电子邮箱" required>
+                <input type="text" placeholder="项目类型">
+                <textarea placeholder="请描述您的项目需求..."></textarea>
+                <button type="submit" class="submit-btn">发送咨询</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 筑境设计. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
