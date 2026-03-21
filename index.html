@@ -451,6 +451,18 @@
             loop: true,
             protect: true
         });
+        
+        // Bind play buttons explicitly to prevent Fancybox interference
+        document.querySelectorAll('.play-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                const videoId = this.getAttribute('onclick').match(/openVideo\('([^']+)'\)/)[1];
+                openVideo(videoId);
+                return false;
+            }, true);
+        });
     </script>
 </body>
 </html>
