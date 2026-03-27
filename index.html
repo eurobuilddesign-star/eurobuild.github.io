@@ -76,6 +76,31 @@
         .gallery-item.more{position:relative}
         .gallery-item.more::after{content:attr(data-more);position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:600;color:var(--gold)}
         
+        /* More Projects - Compact Style */
+        .more-projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:30px;max-width:900px;margin:0 auto}
+        .more-project-card{background:var(--dark-light);border-radius:6px;overflow:hidden;transition:all .3s;border:1px solid rgba(212,175,55,.08)}
+        .more-project-card:hover{transform:translateY(-5px);border-color:rgba(212,175,55,.2)}
+        .more-project-header{position:relative;height:200px;overflow:hidden}
+        .more-project-header img{width:100%;height:100%;object-fit:cover}
+        .more-play-btn{width:50px;height:50px;background:rgba(212,175,55,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);cursor:pointer;transition:all .3s}
+        .more-play-btn:hover{background:var(--gold);transform:translate(-50%,-50%) scale(1.1)}
+        .more-play-btn::after{content:'▶';font-size:18px;color:var(--dark);margin-left:3px}
+        .more-project-info{padding:20px}
+        .more-project-title{font-size:1.3rem;margin-bottom:8px;font-family:Georgia,serif;color:var(--gold)}
+        .more-project-meta{display:flex;gap:15px;margin-bottom:12px;font-size:.8rem;color:var(--gray);flex-wrap:wrap}
+        .more-project-meta span{display:flex;align-items:center;gap:3px}
+        .more-project-desc{color:var(--gray);font-size:.85rem;line-height:1.6;margin-bottom:15px}
+        .more-gallery-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+        .more-gallery-item{aspect-ratio:1;overflow:hidden;border-radius:3px}
+        .more-gallery-item img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+        .more-gallery-item:hover img{transform:scale(1.1)}
+        
+        @media(max-width:768px){
+            .more-projects-grid{grid-template-columns:1fr}
+            .more-project-header{height:180px}
+            .more-gallery-grid{grid-template-columns:repeat(5,1fr)}
+        }
+        
         /* Video Modal */
         .video-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.95);z-index:10000;justify-content:center;align-items:center}
         .video-modal.active{display:flex}
@@ -352,44 +377,41 @@
     </section>
 
     <!-- More Projects Section -->
-    <section class="section" id="more-projects" style="background:linear-gradient(180deg,var(--dark) 0%,#0d0d0d 100%)">
-        <div class="section-header">
+    <section class="section" id="more-projects" style="background:linear-gradient(180deg,var(--dark) 0%,#0d0d0d 100%);padding:80px 5%">
+        <div class="section-header" style="margin-bottom:50px">
             <div class="section-label" data-lang="zh">更多作品</div>
             <div class="section-label" data-lang="en">More Projects</div>
             <div class="section-label" data-lang="it">Altri Progetti</div>
-            <h2 class="section-title" data-lang="zh">其他项目</h2>
-            <h2 class="section-title" data-lang="en">Other Works</h2>
-            <h2 class="section-title" data-lang="it">Altri Lavori</h2>
+            <h2 class="section-title" style="font-size:1.8rem" data-lang="zh">其他项目</h2>
+            <h2 class="section-title" style="font-size:1.8rem" data-lang="en">Other Works</h2>
+            <h2 class="section-title" style="font-size:1.8rem" data-lang="it">Altri Lavori</h2>
         </div>
         
-        <div class="projects-grid">
+        <div class="more-projects-grid">
             <!-- Lido Sushi -->
-            <div class="project-card">
-                <div class="project-header">
+            <div class="more-project-card">
+                <div class="more-project-header">
                     <img src="lido-sushi-1.jpg" alt="Lido Sushi Tortoreto">
-                    <div class="play-btn" onclick="event.stopPropagation();openVideo('_g6d6_qaUPE')"></div>
-                    <div class="project-overlay">
-                        <span style="color:var(--gold);font-size:.8rem;letter-spacing:3px">CLICK TO WATCH VIDEO</span>
-                    </div>
+                    <div class="more-play-btn" onclick="event.stopPropagation();openVideo('_g6d6_qaUPE')"></div>
                 </div>
-                <div class="project-info">
-                    <h3 class="project-title">Lido Sushi</h3>
-                    <div class="project-meta">
+                <div class="more-project-info">
+                    <h3 class="more-project-title">Lido Sushi</h3>
+                    <div class="more-project-meta">
                         <span>📍 Tortoreto, Italy</span>
                         <span>📐 600㎡</span>
                         <span>📅 2025</span>
                     </div>
-                    <p class="project-desc" data-lang="zh">海滨小城 Pescara，我们精心打造的全新餐厅正式亮相。整体设计金碧辉煌，橙色丝绒座椅与金属框架交织出高雅氛围，尽显质感。餐厅坐落于绿意环绕的花园森林中，垂挂绿植与自然光影相映成趣，营造出仿佛置身自然的独特体验。</p>
-                    <p class="project-desc" data-lang="en">In the coastal town of Pescara, our carefully crafted new restaurant makes its debut. The overall design is resplendent with golden splendor, where orange velvet seating and metal frames intertwine to create an elegant atmosphere. Nestled in a garden forest surrounded by greenery, hanging plants and natural light interplay to create a unique immersive nature experience.</p>
-                    <p class="project-desc" data-lang="it">Nella cittadina costiera di Pescara, il nostro nuovo ristorante accuratamente realizzato fa il suo debutto. Il design complessivo è splendente con sfarzo dorato, dove sedili in velluto arancione e cornici metalliche si intrecciano per creare un'atmosfera elegante. Nidificato in una foresta di giardino circondata da verde, piante sospese e luce naturale si intrecciano per creare un'esperienza unica immersiva nella natura.</p>
+                    <p class="more-project-desc" data-lang="zh">海滨小城 Pescara，金碧辉煌设计，橙色丝绒座椅与金属框架交织出高雅氛围，花园森林环绕。</p>
+                    <p class="more-project-desc" data-lang="en">Coastal Pescara, golden splendor design with orange velvet and metal frames, nestled in garden forest.</p>
+                    <p class="more-project-desc" data-lang="it">Pescara costiera, design dorato con velluto arancione e cornici metalliche, immerso nella foresta di giardino.</p>
                     
                     <!-- Gallery -->
-                    <div class="gallery-grid">
-                        <a href="lido-sushi-1.jpg" class="gallery-item" data-fancybox="lido-gallery"><img src="lido-sushi-1.jpg" alt="Lido 1"></a>
-                        <a href="lido-sushi-2.jpg" class="gallery-item" data-fancybox="lido-gallery"><img src="lido-sushi-2.jpg" alt="Lido 2"></a>
-                        <a href="lido-sushi-3.jpg" class="gallery-item" data-fancybox="lido-gallery"><img src="lido-sushi-3.jpg" alt="Lido 3"></a>
-                        <a href="lido-sushi-4.jpg" class="gallery-item" data-fancybox="lido-gallery"><img src="lido-sushi-4.jpg" alt="Lido 4"></a>
-                        <a href="lido-sushi-5.jpg" class="gallery-item" data-fancybox="lido-gallery"><img src="lido-sushi-5.jpg" alt="Lido 5"></a>
+                    <div class="more-gallery-grid">
+                        <a href="lido-sushi-1.jpg" class="more-gallery-item" data-fancybox="lido-gallery"><img src="lido-sushi-1.jpg" alt="Lido 1"></a>
+                        <a href="lido-sushi-2.jpg" class="more-gallery-item" data-fancybox="lido-gallery"><img src="lido-sushi-2.jpg" alt="Lido 2"></a>
+                        <a href="lido-sushi-3.jpg" class="more-gallery-item" data-fancybox="lido-gallery"><img src="lido-sushi-3.jpg" alt="Lido 3"></a>
+                        <a href="lido-sushi-4.jpg" class="more-gallery-item" data-fancybox="lido-gallery"><img src="lido-sushi-4.jpg" alt="Lido 4"></a>
+                        <a href="lido-sushi-5.jpg" class="more-gallery-item" data-fancybox="lido-gallery"><img src="lido-sushi-5.jpg" alt="Lido 5"></a>
                     </div>
                 </div>
             </div>
