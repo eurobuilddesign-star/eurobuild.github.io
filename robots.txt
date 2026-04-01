@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://eurobuilddesign-star.github.io/eurobuild.github.io/sitemap.xml
